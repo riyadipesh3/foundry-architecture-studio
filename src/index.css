@@ -1,0 +1,245 @@
+/* ============================================================================
+   TEMPLATE 11 - FOUNDRY
+   Design read: architecture and design practice. Drawing-board register.
+   Pale cool grey paper, one rust red accent used the way a redline pen is
+   used, near-square geometry, hairline rules, generous void.
+   VARIANCE 8 / MOTION 5 / DENSITY 3
+
+   Theme lock: light only, one accent (rust), one radius (2px).
+
+   SERIF IS DELIBERATE HERE. Source Serif 4 is not the display face and never
+   sets a headline. It appears only as an editorial counter-voice: the studio
+   statement, a project note, and the client quote. Architectural practice
+   writing reads like a practice note or a monograph caption, where a serif
+   carries the quotation register and the grotesque carries the drawing. Swapping
+   it out for a second sans would flatten that hierarchy into two identical
+   voices.
+   ========================================================================= */
+
+@import 'tailwindcss';
+
+@import '@fontsource-variable/schibsted-grotesk';
+@import '@fontsource-variable/source-serif-4';
+
+/* --------------------------------------------------------------------------
+   TOKENS
+   -------------------------------------------------------------------------- */
+@theme {
+  --font-display: 'Schibsted Grotesk Variable', system-ui, sans-serif;
+  --font-body: 'Schibsted Grotesk Variable', system-ui, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', Georgia, serif;
+
+  --color-canvas: #f1f2f4;
+  --color-surface: #e4e7eb;
+  --color-ink: #14161a;
+  --color-body: #4d525a;
+  --color-mute: #676d76;
+  --color-hairline: #d3d6dc;
+  --color-accent: #b4462f;
+  --color-accent-deep: #8f3323;
+  --color-accent-soft: #f6e4de;
+}
+
+:root {
+  --radius: 2px;
+}
+
+/* One radius system, applied everywhere. 2px reads as a trimmed sheet edge
+   rather than a rounded card, which suits the architectural tone. */
+* {
+  border-radius: var(--radius);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-body);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-ink);
+  color: var(--color-canvas);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   COMPONENTS
+   -------------------------------------------------------------------------- */
+@layer components {
+  .shell {
+    width: 100%;
+    max-width: 1400px;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.5rem;
+    }
+  }
+
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1;
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  .display-xl {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 0.98;
+  }
+
+  .display-lg {
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    line-height: 1.02;
+  }
+
+  .display-md {
+    font-size: clamp(1.5rem, 2.6vw, 2.125rem);
+    line-height: 1.08;
+  }
+
+  .lede {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    max-width: 62ch;
+    color: var(--color-body);
+  }
+
+  /* Small letterspaced line above a section headline. Deliberately set in the
+     display grotesque rather than a mono face: no monospace family is loaded
+     here, and a practice would letterspace its own house sans, not a code font.
+     Capped at ceil(sections / 3) across the page. */
+  .micro {
+    font-family: var(--font-display);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+
+  /* Editorial serif voice. Never used on a headline. */
+  .editorial {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--color-ink);
+  }
+
+  .tick {
+    display: block;
+    width: 44px;
+    height: 2px;
+    background: var(--color-accent);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.8125rem 1.5rem;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 160ms ease, color 160ms ease,
+      transform 120ms ease, border-color 160ms ease;
+  }
+
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-canvas);
+  }
+
+  .btn-primary:hover {
+    background: var(--color-accent);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-ink);
+    border-color: var(--color-hairline);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--color-ink);
+  }
+
+  .frame {
+    position: relative;
+    overflow: hidden;
+    background: var(--color-surface);
+  }
+
+  .frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .field {
+    width: 100%;
+    background: var(--color-canvas);
+    border: 1px solid var(--color-hairline);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    padding: 0.75rem 1rem;
+    transition: border-color 160ms ease;
+  }
+
+  .field:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 620ms cubic-bezier(0.16, 1, 0.3, 1),
+      transform 620ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@source "./**/*.{tsx,ts}";
